@@ -24,17 +24,37 @@ Unsplash, and the Sublex Chat widget.
 
 ## Deploying on Hostinger
 
-hPanel, Websites, the domain, then **Git** under Advanced.
+hPanel, Websites, **the subdomain's own entry**, then **Git** under Advanced.
 
-1. Repository: this repo's URL. It is private, so add the deploy key Hostinger
-   shows you to **Settings, Deploy keys** on this repo first.
+1. Repository:
+   `https://github.com/nfamaraceesay2018-svg/sublex-demo5-garage.git`
+   This repository is public, so no key and no token is needed.
 2. Branch: `main`
-3. Install path: leave empty so it deploys into `public_html`
-4. Deploy, and optionally enable auto deployment with the webhook Hostinger
-   gives you
+3. Install path: leave it empty, so the files land in the document root of
+   **this subdomain**. Check you are on the `demo5.sublexchat.com` entry and
+   not the parent domain, or the files deploy to the wrong site's root.
+4. Deploy. Optionally enable auto deployment with the webhook Hostinger shows.
 
-Everything in this repository is served publicly, which is why no build
-scripts or source files live here.
+Everything in this repository is served publicly, which is why no build scripts
+or source files live here.
+
+### If the deployment fails
+
+**`could not read Username for 'https://github.com'`** means the repository is
+private and the URL is HTTPS. A Hostinger deploy key is an **SSH** key and is
+never used on an HTTPS clone, so the clone stops to ask for a password that
+nobody can type. Either make the repository public and use the HTTPS URL above,
+or use the SSH URL `git@github.com:nfamaraceesay2018-svg/sublex-demo5-garage.git` with the
+key added under Settings, Deploy keys.
+
+Note that **a GitHub deploy key can only belong to one repository ever**, and
+Hostinger issues one key per hosting account. Five private repositories
+therefore cannot share it. That is why these are public.
+
+**403 on the site with 404 on `/index.html`** means the document root is being
+served but is empty: the deployment did not run, or it wrote to a different
+folder. Check the Git panel's last result, then look in File Manager for
+`index.html` in this subdomain's own directory.
 
 ## Changing it
 
